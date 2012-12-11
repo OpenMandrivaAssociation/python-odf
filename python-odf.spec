@@ -1,14 +1,13 @@
 %define iname	odfpy
 
 Name:		python-odf
-Version:	0.9.2
-Release:	%mkrel 1
+Version:	0.9.4
+Release:	1
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
 URL:		http://forge.osor.eu/projects/odfpy/
 Source0:	http://forge.osor.eu/frs/download.php/805/%{iname}-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 BuildArch:	noarch
 BuildRequires:	python-devel 
 BuildRequires:	python-setuptools
@@ -36,20 +35,22 @@ CFLAGS="%{optflags}" %{__python} -c 'import setuptools; execfile("setup.py")' bu
 
 
 %install
-rm -rf %{buildroot}
 %{__python} -c 'import setuptools; execfile("setup.py")' install --skip-build --root %{buildroot}
 sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
 
- 
-%clean
-rm -rf %{buildroot}
-
 
 %files
-%defattr(-,root,root,-)
 %docdir examples
 %docdir contrib
 %{_bindir}/*
 %{_mandir}/man1/*
 %{python_sitelib}/*egg-info
 %{python_sitelib}/odf
+
+
+%changelog
+* Tue Apr 20 2010 Tomas Kindl <supp@mandriva.org> 0.9.2-1mdv2010.1
++ Revision: 537126
+- python-odf a.k.a. odfpy initial import
+- create python-odf
+
