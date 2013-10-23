@@ -1,13 +1,13 @@
 %define iname	odfpy
 
 Name:		python-odf
-Version:	0.9.4
+Version:	0.9.6
 Release:	1
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
 URL:		http://forge.osor.eu/projects/odfpy/
-Source0:	http://forge.osor.eu/frs/download.php/805/%{iname}-%{version}.tar.gz
+Source0:	https://pypi.python.org/packages/source/o/odfpy/odfpy-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	python-devel 
 BuildRequires:	python-setuptools
@@ -44,8 +44,8 @@ sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
 %docdir contrib
 %{_bindir}/*
 %{_mandir}/man1/*
-%{python_sitelib}/*egg-info
-%{python_sitelib}/odf
+%{py_puresitedir}/*egg-info
+%{py_puresitedir}/odf
 
 
 %changelog
@@ -53,4 +53,5 @@ sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
 + Revision: 537126
 - python-odf a.k.a. odfpy initial import
 - create python-odf
+
 
