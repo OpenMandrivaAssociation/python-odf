@@ -83,8 +83,6 @@ sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
 sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python2_sitelib}/odf/*.py
 
 %files
-%docdir examples
-%docdir contrib
 %{_bindir}/*
 %{_mandir}/man1/*
 %{py_puresitedir}/*egg-info
