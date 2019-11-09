@@ -1,4 +1,2 @@
-removed_sources:
-  odfpy-0.9.4.tar.gz: 1c0b9a589d547ceffa7d524dbe7425cdd02a7f35
 sources:
-  odfpy-0.9.6.tar.gz: 3f8bb43c20f946548cad3d7ba2eb49a4ce498924
+  odfpy-1.4.0.tar.gz: 26dc7ff7b3bc32ca73f78d188c4389df89c39cd6
