@@ -47,7 +47,8 @@ Group:          Development/Python
 BuildRequires:  python2dist(setuptools)	 
 BuildRequires:  pkgconfig(python2)	 
 Recommends:     python-odf-tools	 
-Recommends:     python-odf-doc	 
+Recommends:     python-odf-doc	
+Recommends:	python2dist(defusedxml)
 Provides:       python2-odf = %{version}-%{release}	 
 Obsoletes:      python2-odfpy < 1.3.6-2	 
 %{?python_provide:%python_provide python2-%{srcname}}	 
