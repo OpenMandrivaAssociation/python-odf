@@ -36,13 +36,13 @@ Odfpy is a library to read and write OpenDocument v. 1.1 files.
 %package -n python-odf-tools
 Summary:	Python API and tools to manipulate OpenDocument files
 Group:		Development/Python
-Requires:	python3-odf = %{version}-%{release}
+Requires:	python-odf = %{version}-%{release}
 
 %description -n python-odf-tools
 Odfpy is a library to read and write OpenDocument v. 1.1 files.
 
 %package -n python2-odf	 
-Summary:        Python3 library for manipulating OpenDocument files	 
+Summary:        Python2 library for manipulating OpenDocument files	 
 Group:          Development/Python	 
 BuildRequires:  python2dist(setuptools)	 
 BuildRequires:  pkgconfig(python2)	 
@@ -65,8 +65,6 @@ These checks and the API itself were generated from the RelaxNG
 schema, and then hand-edited. Therefore the API is complete and can	 
 handle all ODF constructions, but could be improved in its	 
 understanding of data types.	 
- 
-
 
 %prep
 %setup -q -n %{iname}-%{version}
