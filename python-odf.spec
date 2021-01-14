@@ -1,8 +1,8 @@
 %define iname	odfpy
 
 Name:		python-odf
-Version:	1.4.0
-Release:	2
+Version:	1.4.1
+Release:	1
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
@@ -31,7 +31,7 @@ Summary:	documentation and examples for python-odf and python3-odf
 Group:		Development/Python
 
 %description -n python-odf-doc
-Odfpy is a library to read and write OpenDocument v. 1.1 files.
+Odfpy is a library to read and write OpenDocument v. 1.2 files.
 
 %package -n python-odf-tools
 Summary:	Python API and tools to manipulate OpenDocument files
@@ -39,7 +39,7 @@ Group:		Development/Python
 Requires:	python-odf = %{version}-%{release}
 
 %description -n python-odf-tools
-Odfpy is a library to read and write OpenDocument v. 1.1 files.
+Odfpy is a library to read and write OpenDocument v. 1.2 files.
 
 %package -n python2-odf	 
 Summary:        Python2 library for manipulating OpenDocument files	 
@@ -97,12 +97,3 @@ sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python2_sitelib}/odf/*.py
 %files -n python2-odf	 
 %{python2_sitelib}/*egg-info	 
 %{python2_sitelib}/odf
-
-
-%changelog
-* Tue Apr 20 2010 Tomas Kindl <supp@mandriva.org> 0.9.2-1mdv2010.1
-+ Revision: 537126
-- python-odf a.k.a. odfpy initial import
-- create python-odf
-
-
