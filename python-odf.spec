@@ -2,7 +2,7 @@
 
 Name:		python-odf
 Version:	1.4.1
-Release:	2
+Release:	3
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
