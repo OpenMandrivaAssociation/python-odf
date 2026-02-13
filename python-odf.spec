@@ -1,16 +1,20 @@
-%define iname	odfpy
+%define module	odfpy
 
 Name:		python-odf
 Version:	1.4.1
-Release:	3
+Release:	4
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
 URL:		https://github.com/eea/odfpy/wiki
-Source0:	https://pypi.python.org/packages/source/o/%{iname}/%{iname}-%{version}.tar.gz
+Source0:	https://pypi.python.org/packages/source/o/%{module}/%{module}-%{version}.tar.gz
+BuildSystem:	python
 BuildArch:	noarch
-BuildRequires:	python-devel 
+BuildRequires:	dos2unix
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	python%{pyver}dist(pip)
 BuildRequires:	python%{pyver}dist(setuptools)
+BuildRequires:	python%{pyver}dist(wheel)
 
 %description
 Odfpy aims to be a complete API for OpenDocument in Python. Unlike
@@ -27,11 +31,11 @@ handle all ODF constructions, but could be improved in its
 understanding of data types.
 
 %package -n python-odf-doc
-Summary:	documentation and examples for python-odf and python3-odf
+Summary:	Documentation and examples for python-odf and python3-odf
 Group:		Development/Python
 
 %description -n python-odf-doc
-Odfpy is a library to read and write OpenDocument v. 1.2 files.
+%{module} is a library to read and write OpenDocument v. 1.2 files.
 
 %package -n python-odf-tools
 Summary:	Python API and tools to manipulate OpenDocument files
@@ -39,18 +43,17 @@ Group:		Development/Python
 Requires:	python-odf = %{version}-%{release}
 
 %description -n python-odf-tools
-Odfpy is a library to read and write OpenDocument v. 1.2 files.
+%{module} is a library to read and write OpenDocument v. 1.2 files.
 
-%prep
-%setup -q -n %{iname}-%{version}
+%prep -a
+# Remove bundled egg-info
+rm -rf %{module}.egg-info
+# fix non-unix line endings
+dos2unix examples/ods-currency.py
 
-%build
-%py3_build
-
-%install
-%py3_install
-
+%install -a
 sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
+
 
 %files
 %{_bindir}/*
