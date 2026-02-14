@@ -1,13 +1,14 @@
 %define module	odfpy
 
 Name:		python-odf
-Version:	1.4.1
-Release:	4
+Version:	1.4.2
+Release:	1
 Summary:	Python library for manipulating OpenDocument files
 Group:		Development/Python
 License:	GPLv2+
-URL:		https://github.com/eea/odfpy/wiki
-Source0:	https://pypi.python.org/packages/source/o/%{module}/%{module}-%{version}.tar.gz
+URL:		https://github.com/eea/odfpy
+# Specific URI to grab this repos tagged release tarballs
+Source0:	%{URL}/archive/refs/tags/release-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildSystem:	python
 BuildArch:	noarch
 BuildRequires:	dos2unix
@@ -15,6 +16,10 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	python%{pyver}dist(pip)
 BuildRequires:	python%{pyver}dist(setuptools)
 BuildRequires:	python%{pyver}dist(wheel)
+# This package used to provide a python-odf-tools package with identical files
+# which also existed in the main package causing a conflict/circ-dep,
+# lets us not do that & also provide a replacement for packages that require it.
+%rename %{name}-tools
 
 %description
 Odfpy aims to be a complete API for OpenDocument in Python. Unlike
@@ -37,33 +42,29 @@ Group:		Development/Python
 %description -n python-odf-doc
 %{module} is a library to read and write OpenDocument v. 1.2 files.
 
-%package -n python-odf-tools
-Summary:	Python API and tools to manipulate OpenDocument files
-Group:		Development/Python
-Requires:	python-odf = %{version}-%{release}
-
-%description -n python-odf-tools
-%{module} is a library to read and write OpenDocument v. 1.2 files.
-
 %prep -a
 # Remove bundled egg-info
 rm -rf %{module}.egg-info
 # fix non-unix line endings
 dos2unix examples/ods-currency.py
+# fix interpreter, order of ops is important here else we end up mashing interps
+find . -type f -exec sed -i 's@#!/usr/bin/python@#!/usr/bin/python3@g' {} +
+find . -type f -exec sed -i 's@#!/usr/bin/env python@#!/usr/bin/python3@g' {} +
+# remove python dependency from doc files and disable the executive bit
+sed -i '/#!\/usr\/bin\/python3/d' contrib/{gutenberg/gbtext2odt.py,odf2gbzip/odf2gbzip,odf2war/odf2war,odfsign/odfsign,odscell/odscell}
+chmod -x contrib/{gutenberg/gbtext2odt.py,odf2gbzip/odf2gbzip,odf2war/odf2war,odfsign/odfsign,odscell/odscell}
 
 %install -a
-sed -i '/#!\/usr\/bin\/python/d' %{buildroot}%{python_sitelib}/odf/*.py
-
+# fix non-executable-script linting errors
+for file in %{buildroot}/%{python_sitelib}/odf/{element,elementtypes,load,manifest,odf2xhtml,odfmanifest,thumbnail,userfield}.py; do
+   chmod a+x $file
+done
 
 %files
 %{_bindir}/*
 %{_mandir}/man1/*
-%{py_puresitedir}/*egg-info
+%{py_puresitedir}/%{module}-%{version}*.egg-info
 %{py_puresitedir}/odf
 
 %files -n python-odf-doc
 %doc examples contrib
-
-%files -n python-odf-tools
-%{_mandir}/man1/*
-%{_bindir}/*
